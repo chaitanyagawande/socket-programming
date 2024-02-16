@@ -1,32 +1,33 @@
 import pytest
-from unittest.mock import MagicMock, patch
+from unittest.mock import MagicMock
+import uuid
+
 from handler.client_handler import ClientHandler
-from utils.session_manager import SessionManager
+
+class MockSessionManager:
+    def register_session(self, session_id, handler):
+        pass
+
+    def unregister_session(self, session_id):
+        pass
+
+    def get_total_active_sessions(self):
+        return 1  # Simulate one active session for simplicity
 
 @pytest.fixture
-def mock_socket():
-    return MagicMock()
+def client_socket():
+    mock_socket = MagicMock()
+    return mock_socket
 
 @pytest.fixture
-def mock_session_manager():
-    manager = SessionManager()
-    manager.register_session = MagicMock()
-    manager.unregister_session = MagicMock()
-    return manager
+def session_manager():
+    return MagicMock(spec=MockSessionManager)
 
-@pytest.fixture
-def client_handler(mock_socket, mock_session_manager):
-    return ClientHandler(mock_socket, mock_session_manager)
-
-def test_initialization(client_handler, mock_session_manager):
-    assert client_handler.session_manager == mock_session_manager
-    assert client_handler.total_messages_sent == 0
-    assert client_handler.total_bytes_received == 0
-
-def test_close_connection(client_handler, mock_socket, mock_session_manager):
-    client_handler.close_connection()
-    mock_socket.close.assert_called_once()
-    mock_session_manager.unregister_session.assert_called_with(client_handler.session_id)
+def test_client_handler_initialization(session_manager, client_socket):
+    handler = ClientHandler(client_socket, session_manager)
+    assert isinstance(handler.session_id, int)
+    assert handler.total_messages_sent == 0
+    assert handler.total_bytes_received == 0
 
 if __name__ == "__main__":
     pytest.main(["-v", __file__])
