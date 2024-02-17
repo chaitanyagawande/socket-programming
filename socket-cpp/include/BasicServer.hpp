@@ -6,7 +6,8 @@
 #include <atomic>
 #include "SessionManager.hpp"
 
-class BasicServer {
+class BasicServer
+{
 public:
     BasicServer(int port);
     ~BasicServer();
@@ -18,7 +19,6 @@ private:
     int serverSocket;
     std::atomic<bool> running;
     SessionManager sessionManager;
-    std::vector<std::thread> clientThreads;
 
     void acceptConnections();
     void handleClient(int clientSocket);
