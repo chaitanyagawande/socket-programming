@@ -4,10 +4,11 @@
 #include <thread>
 #include <string>
 
-#include "include/BasicClient.hpp"
+#include "BasicClient.hpp"
 
-int main(int argc, char **argv) {
-    BasicClient basicClient("localhost", 2345);
+int main(int argc, char **argv)
+{
+    BasicClient basicClient("127.0.0.1", 2345);
     basicClient.connectToServer();
 
     std::stringstream msg;
