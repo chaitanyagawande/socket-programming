@@ -7,8 +7,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(SOURCES
     src/BasicClient.cpp
     src/BasicServer.cpp
-    src/ClientHandler.cpp
     src/SessionManager.cpp
+    src/ClientHandler.cpp
     src/ServerApp.cpp
     src/ClientApp.cpp
 )
