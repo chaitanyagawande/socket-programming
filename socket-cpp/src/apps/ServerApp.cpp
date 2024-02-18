@@ -14,11 +14,15 @@ void signalHandler(int signal)
     exit(signal);
 }
 
-int main(int argc, char **argv)
-{
-    BasicServer basicServer(2345);
-    basicServerPtr = &basicServer; 
+int main(int argc, char **argv) {
+    int port = 12345;
+    if (argc > 1) {
+        port = std::stoi(argv[1]);
+    }
 
+    BasicServer basicServer(port);
+
+    basicServerPtr = &basicServer; 
     
     std::signal(SIGINT, signalHandler);
     std::signal(SIGTERM, signalHandler);

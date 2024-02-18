@@ -28,13 +28,17 @@ class BasicClient:
                     if user_input.lower() == 'quit':
                         break
 
-                    encoded_message = base64.b64encode(user_input.encode('utf-8')).decode('utf-8')
-                    message_bytes = encoded_message.encode('utf-8')
+                    message_bytes = user_input.encode('utf-8')
                     sock.sendall(message_bytes)
 
         except Exception as e:
             print(f"Client exception: {e}")
 
 if __name__ == "__main__":
-    client = BasicClient(server_address='localhost', server_port=12347)
+    port = 12347
+
+    if len(sys.argv) > 1:
+        port = int(sys.argv[1])
+
+    client = BasicClient(server_address='localhost', server_port=port)
     client.start()

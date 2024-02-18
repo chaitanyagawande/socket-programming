@@ -1,4 +1,3 @@
-import base64
 import uuid
 import time
 from threading import Thread
@@ -30,14 +29,12 @@ class ClientHandler(Thread):
                     if message is None:
                         break
 
-                    decoded_message = base64.b64decode(message).decode('utf-8')
-
                     self.total_messages_sent += 1
-                    self.total_bytes_received += len(decoded_message.encode('utf-8'))
+                    self.total_bytes_received += len(message.encode('utf-8'))
 
-                    print(f"Received message from username = [{self.client_name}], message = [{decoded_message}]")
+                    print(f"Received message from username = [{self.client_name}], message = [{message}]")
 
-                    if decoded_message.lower() == "quit":
+                    if message.lower() == "quit":
                         break
 
         except Exception as e:

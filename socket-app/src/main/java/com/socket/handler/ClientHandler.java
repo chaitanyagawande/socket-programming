@@ -1,10 +1,8 @@
 package com.socket.handler;
 
 import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-import java.util.Base64;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
@@ -41,14 +39,12 @@ public class ClientHandler implements Runnable {
             String message;
             while ((message = readMessage(in)) != null) { 
 
-                String decodedMessage = new String(Base64.getDecoder().decode(message));
-
                 totalMessagesSent.incrementAndGet();
-                totalBytesReceived.addAndGet(decodedMessage.getBytes().length);
+                totalBytesReceived.addAndGet(message.getBytes().length);
 
-                System.out.println("Received message from username = [" + this.clientName + "], message = [" + decodedMessage + "]");
+                System.out.println("Received message from username = [" + this.clientName + "], message = [" + message + "]");
 
-                if ("quit".equalsIgnoreCase(decodedMessage)) {
+                if ("quit".equalsIgnoreCase(message)) {
                     break;
                 }
             }

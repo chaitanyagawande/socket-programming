@@ -5,7 +5,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
-import java.util.Base64;
 
 public class BasicClient {
 
@@ -39,8 +38,7 @@ public class BasicClient {
                     break;
                 }
 
-                String encodedMessage = Base64.getEncoder().encodeToString(userInput.getBytes());
-                byte[] messageBytes = encodedMessage.getBytes();
+                byte[] messageBytes = userInput.getBytes();
                 int offset = 0;
                 while (offset < messageBytes.length) {
                     int chunkSize = Math.min(messageBytes.length - offset, 2048);

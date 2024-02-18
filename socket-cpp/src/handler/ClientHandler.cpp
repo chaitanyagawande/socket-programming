@@ -46,8 +46,7 @@ void ClientHandler::run()
 
         std::cout << "Received message from username = [" << username << "], message = [" << message << "]" << std::endl;
 
-        std::string response = "Echo: " + message;
-        send(clientSocket, response.c_str(), response.size(), 0);
+        send(clientSocket, message.c_str(), message.size(), 0);
     }
     closeSocket();
 }

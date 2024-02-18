@@ -1,4 +1,5 @@
 import socket
+import sys
 from concurrent.futures import ThreadPoolExecutor
 from utils.session_manager import SessionManager
 from handler.client_handler import ClientHandler
@@ -33,5 +34,10 @@ class BasicServer:
         print("Server shutdown complete")
 
 if __name__ == "__main__":
-    server = BasicServer(port=12347)
+    port = 12347
+
+    if len(sys.argv) > 1:
+        port = int(sys.argv[1])
+
+    server = BasicServer(port=port)
     server.start()
