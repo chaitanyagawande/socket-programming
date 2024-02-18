@@ -20,7 +20,8 @@ void BasicServer::start()
 {
     struct sockaddr_in serverAddr;
     serverSocket = socket(AF_INET, SOCK_STREAM, 0);
-    if (serverSocket == -1) {
+    if (serverSocket == -1)
+    {
         std::cerr << "Could not create socket" << std::endl;
         return;
     }
