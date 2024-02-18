@@ -1,5 +1,5 @@
-#include "BasicServer.hpp"
-#include "ClientHandler.hpp"
+#include "server/BasicServer.hpp"
+#include "handler/ClientHandler.hpp"
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <unistd.h>
@@ -20,8 +20,7 @@ void BasicServer::start()
 {
     struct sockaddr_in serverAddr;
     serverSocket = socket(AF_INET, SOCK_STREAM, 0);
-    if (serverSocket == -1)
-    {
+    if (serverSocket == -1) {
         std::cerr << "Could not create socket" << std::endl;
         return;
     }
@@ -53,10 +52,7 @@ void BasicServer::stop()
         serverSocket = -1;
     }
 
-    // No need to join threads here because they are detached
-    // and will clean up themselves using SessionManager
-
-    sessionManager.removeAllHandlers(); // Clean up all client handlers
+    sessionManager.removeAllHandlers(); 
 }
 
 void BasicServer::acceptConnections()
@@ -72,15 +68,9 @@ void BasicServer::acceptConnections()
             }
             continue;
         }
-
-        // Create and start a handler for the new client connection
+        
         auto handler = sessionManager.createHandler(clientSocket);
         std::thread(&ClientHandler::start, handler).detach();
     }
 }
 
-void BasicServer::handleClient(int clientSocket)
-{
-    // This function is no longer used because we are using SessionManager
-    // to handle clients. We keep it here in case you have a specific use case for it.
-}

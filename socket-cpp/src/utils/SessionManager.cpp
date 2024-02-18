@@ -1,7 +1,5 @@
-#include "SessionManager.hpp"
-#include "ClientHandler.hpp"
-
-// Constructor and Destructor are defaulted in the header and do not need to be defined here
+#include "utils/SessionManager.hpp"
+#include "handler/ClientHandler.hpp"
 
 void SessionManager::registerSession(long sessionId, std::shared_ptr<ClientHandler> handler)
 {

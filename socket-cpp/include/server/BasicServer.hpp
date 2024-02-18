@@ -4,7 +4,7 @@
 #include <thread>
 #include <vector>
 #include <atomic>
-#include "SessionManager.hpp"
+#include "utils/SessionManager.hpp"
 
 class BasicServer
 {
@@ -21,7 +21,6 @@ private:
     SessionManager sessionManager;
 
     void acceptConnections();
-    void handleClient(int clientSocket);
 };
 
 #endif

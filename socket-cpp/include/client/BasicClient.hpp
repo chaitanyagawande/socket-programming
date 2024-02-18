@@ -7,6 +7,7 @@ class BasicClient {
 public:
     BasicClient(const std::string& serverAddress, int serverPort);
     void connectToServer();
+    void sendUsername();
     void sendMessage(const std::string& message);
     void startCommunicationLoop();
 

@@ -1,4 +1,4 @@
-#include "BasicClient.hpp"
+#include "client/BasicClient.hpp"
 #include <iostream>
 #include <sys/socket.h>
 #include <arpa/inet.h>
@@ -39,15 +39,22 @@ void BasicClient::createSocket()
 void BasicClient::connectToServer()
 {
     createSocket();
-    std::cout << "Connected to server at " << serverAddress << ":" << serverPort << std::endl;
+    std::cout << "Connected to server. Type 'quit' to exit." << std::endl;
+}
+
+void BasicClient::sendUsername() {
+    std::string username;
+    std::cout << "Enter username: ";
+    std::getline(std::cin, username);
+    
+    send(sockfd, username.c_str(), username.length(), 0);
 }
 
 void BasicClient::sendMessage(const std::string &message)
 {
     send(sockfd, message.c_str(), message.length(), 0);
-    std::cout << "Message sent: " << message << std::endl;
     std::string response = readResponse();
-    std::cout << "Response from server: " << response << std::endl;
+    std::cout << "Server-to-Client:: " << response << std::endl;
 }
 
 std::string BasicClient::readResponse()
@@ -64,6 +71,8 @@ std::string BasicClient::readResponse()
 
 void BasicClient::startCommunicationLoop()
 {
+    sendUsername();
+
     std::string message;
     while (true)
     {

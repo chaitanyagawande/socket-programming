@@ -1,8 +1,8 @@
-#include "BasicServer.hpp"
+#include "server/BasicServer.hpp"
 #include <csignal>
 #include <iostream>
 
-BasicServer *basicServerPtr = nullptr; // Global pointer to access the server instance in the signal handler
+BasicServer *basicServerPtr = nullptr; 
 
 void signalHandler(int signal)
 {
@@ -17,13 +17,13 @@ void signalHandler(int signal)
 int main(int argc, char **argv)
 {
     BasicServer basicServer(2345);
-    basicServerPtr = &basicServer; // Set the global pointer
+    basicServerPtr = &basicServer; 
 
-    // Register signal handler
+    
     std::signal(SIGINT, signalHandler);
     std::signal(SIGTERM, signalHandler);
 
-    basicServer.start(); // This will block and run the server loop
+    basicServer.start(); 
 
-    return 0; // We will never reach this point due to the blocking call above
+    return 0; 
 }

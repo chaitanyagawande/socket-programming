@@ -1,5 +1,5 @@
-#include "ClientHandler.hpp"
-#include "SessionManager.hpp"
+#include "handler/ClientHandler.hpp"
+#include "utils/SessionManager.hpp"
 #include <sys/socket.h>
 #include <unistd.h>
 #include <iostream>
@@ -16,6 +16,7 @@ ClientHandler::~ClientHandler()
 
 void ClientHandler::start()
 {
+
     running = true;
     thread = std::thread(&ClientHandler::run, this);
 }
@@ -31,17 +32,20 @@ void ClientHandler::stop()
 
 void ClientHandler::run()
 {
-    while (running)
-    {
+    std::cout << "Total active sessions: " << sessionManager.getTotalActiveSessions() << std::endl;
+
+    std::string username = readMessage();
+
+    while (running) {
         std::string message = readMessage();
-        if (message.empty())
+        if (message.empty() || message == "quit")
         {
             sessionManager.removeHandler(clientSocket);
             break;
         }
-        std::cout << "Received message: " << message << std::endl;
 
-        // Echo the received message back to the client as a simple response
+        std::cout << "Received message from username = [" << username << "], message = [" << message << "]" << std::endl;
+
         std::string response = "Echo: " + message;
         send(clientSocket, response.c_str(), response.size(), 0);
     }

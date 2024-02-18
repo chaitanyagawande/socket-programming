@@ -4,13 +4,13 @@
 #include <map>
 #include <mutex>
 #include <memory>
-#include "ClientHandler.hpp" // Ensure this includes or forward declares ClientHandler
+#include "handler/ClientHandler.hpp" 
 
 class SessionManager
 {
 public:
-    SessionManager() = default;  // Keep default constructor
-    ~SessionManager() = default; // Keep default destructor
+    SessionManager() = default;  
+    ~SessionManager() = default; 
 
     void registerSession(long sessionId, std::shared_ptr<ClientHandler> handler);
     void unregisterSession(long sessionId);
@@ -24,4 +24,4 @@ private:
     std::mutex mutex;
 };
 
-#endif // SESSIONMANAGER_HPP
+#endif

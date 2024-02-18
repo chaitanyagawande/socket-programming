@@ -5,7 +5,6 @@
 #include <atomic>
 #include <string>
 
-// Forward declaration
 class SessionManager;
 
 class ClientHandler
