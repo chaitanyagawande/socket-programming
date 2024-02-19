@@ -1,7 +1,7 @@
 #!/usr/bin/expect
 
 set timeout 1
-spawn java -cp target/classes com.socket.app.ClientApp
+spawn ./build/ServerApp
 expect "Enter your username:"
 send "chaitanya\r"
 
