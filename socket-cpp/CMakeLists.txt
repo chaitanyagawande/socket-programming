@@ -20,14 +20,12 @@ set(CLIENT_SOURCES
     src/apps/ClientApp.cpp
 )
 
-# Define server and client applications
 add_executable(ServerApp ${SERVER_SOURCES})
 add_executable(ClientApp ${CLIENT_SOURCES})
 
-# Option to specify sanitizer: ASAN, UBSAN, or NONE
+# sanitizers used: ASAN, UBSAN, or NONE
 set(SANITIZER "NONE" CACHE STRING "Choose the type of sanitizer: ASAN, UBSAN, NONE")
 
-# Configure sanitizer flags based on the selected option
 if(SANITIZER STREQUAL "ASAN")
     set(SANITIZER_FLAGS "-fsanitize=address" "-fno-omit-frame-pointer" "-g")
     set(SANITIZER_LINKER_FLAGS "-fsanitize=address")
@@ -43,23 +41,18 @@ if(NOT SANITIZER STREQUAL "NONE")
     target_link_options(ClientApp PRIVATE ${SANITIZER_LINKER_FLAGS})
 endif()
 
-# Link Threads library
 target_link_libraries(ServerApp Threads::Threads)
 target_link_libraries(ClientApp Threads::Threads)
 
-# Enable testing
 enable_testing()
 
-# Assuming you have test files named ClientTest.cpp and ServerTest.cpp in the test directory
 set(TEST_SOURCES
     test/ClientAppTest.cpp
     test/ServerAppTest.cpp
 )
 
-# For simplicity, adding executable targets for each test suite
-# Adjust according to your actual test files
 foreach(TEST_SOURCE ${TEST_SOURCES})
-    get_filename_component(TEST_NAME ${TEST_SOURCE} NAME_WE) # Extracts the file name without the directory and extension
+    get_filename_component(TEST_NAME ${TEST_SOURCE} NAME_WE)
     add_executable(${TEST_NAME} ${TEST_SOURCE})
     target_link_libraries(${TEST_NAME} Threads::Threads)
     add_test(NAME ${TEST_NAME} COMMAND ${TEST_NAME})
