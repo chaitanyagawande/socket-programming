@@ -23,7 +23,14 @@ Socket programming is a way to enable communication between two applications ove
     ./build.sh
     ```
 
-3. **Run Server**
+3. **Run Test Cases**
+
+```bash
+cd build
+ctest
+```
+
+4. **Run Server**
 
     ```bash
     chmod +x server.sh
@@ -31,7 +38,7 @@ Socket programming is a way to enable communication between two applications ove
     # You can specify port while running this script. e.g., ./server.sh 9001
     ```
 
-4. **Run Client**
+5. **Run Client**
 
     ```bash
     chmod +x client.sh
