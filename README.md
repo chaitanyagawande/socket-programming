@@ -25,10 +25,10 @@ Socket programming is a way to enable communication between two applications ove
 
 3. **Run Test Cases**
 
-```bash
-cd build
-ctest
-```
+    ```bash
+    cd build
+    ctest
+    ```
 
 4. **Run Server**
 
