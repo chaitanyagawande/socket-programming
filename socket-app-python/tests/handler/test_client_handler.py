@@ -12,7 +12,7 @@ class MockSessionManager:
         pass
 
     def get_total_active_sessions(self):
-        return 1  # Simulate one active session for simplicity
+        return 1
 
 @pytest.fixture
 def client_socket():
